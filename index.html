@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KuzOFF Студия детейлинга" />
+  <title>KuzOFF Студия детейлинга</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#e11d48',
+            'gold-light': '#fb7185',
+            'dark-card': '#161616',
+          }
+        }
+      }
+    }
+  </script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Закрыть">✕</button>
+  <div class="lb-backdrop" onclick="closeLightbox()"></div>
+  <div class="lb-content">
+    <img id="lb-img" src="" alt="" />
+    <p id="lb-caption" class="lb-caption"></p>
+  </div>
+    </div>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Основная навигация">
+    <a href="#hero" class="nav-logo">Kuz<span>OFF</span></a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#advantages">Преимущества</a></li>
+      <li><a href="#gallery">Работы</a></li>
+      <li><a href="#pricing">Прайс</a></li>
+      <!-- <li><a href="#before-after">До / После</a></li> -->
+      <li><a href="#contacts">Контакты</a></li>
+      <li><a href="#contacts" class="nav-cta">Записаться</a></li>
+    </ul>
+
+    <!-- Burger (mobile) -->
+    <button class="burger" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <ul class="nav-mobile" role="list">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#advantages">Преимущества</a></li>
+    <li><a href="#gallery">Портфолио</a></li>
+    <li><a href="#pricing">Прайс</a></li>
+    <!-- <li><a href="#before-after">До / После</a></li> -->
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+
+
+  <!-- ═══════════════════════════════════════════
+       WORK DETAIL PAGE (hidden by default)
+  ═══════════════════════════════════════════ -->
+  <div id="work-detail" style="display:none;">
+    <div class="work-detail-hero">
+      <div class="work-detail-bg" id="wd-emoji">🚗</div>
+      <div class="work-detail-hero-content">
+        <a href="#" id="work-back-btn" class="work-back">← Назад к портфолио</a>
+        <h1 class="work-detail-title" id="wd-title">Название работы</h1>
+        <div class="work-detail-meta" id="wd-tags">
+          <span class="work-meta-tag" id="wd-category">Категория</span>
+          <span class="work-meta-tag">⏱ <span id="wd-duration">2 дня</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-detail-body">
+      <p id="wd-desc"></p>
+
+      <h3>Этапы работы</h3>
+      <div class="work-steps" id="wd-steps"></div>
+      <h3>Фотографии</h3>
+        <div id="wd-gallery" class="wd-gallery"></div>
+      <h3>Результат</h3>
+      <p id="wd-result"></p>
+
+      <!--<div class="mt-8">
+        <a href="#contacts" id="work-order-btn" class="btn-primary">Заказать такой же детейлинг</a>
+      </div>-->
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════ -->
+  <div id="main-content">
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid-lines"></div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">Профессиональный детейлинг</div>
+        <h1 class="hero-title">
+          ИДЕАЛЬНЫЙ<br>
+          <span class="gold">БЛЕСК</span><br>
+          ВАШЕГО АВТО
+        </h1>
+        <p class="hero-sub">
+          Возвращаем автомобилям первозданный вид.<br>
+          Работаем только с премиальными материалами.
+        </p>
+        <div class="hero-actions">
+          <a href="#contacts" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Записаться
+          </a>
+          <a href="#gallery" class="btn-outline">
+            Наши работы
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" data-target="500" data-suffix="+">0+</div>
+          <div class="stat-label">Довольных клиентов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="5" data-suffix=" лет">0 лет</div>
+          <div class="stat-label">Опыта работы</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="100" data-suffix="%">0%</div>
+          <div class="stat-label">Гарантия качества</div>
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Вниз</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── SERVICES ── -->
+    <section id="services">
+      <div class="section-label reveal">Что мы делаем</div>
+      <h2 class="section-title reveal reveal-delay-1">НАШИ УСЛУГИ</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Профессиональный уход за вашим автомобилем — от мойки до нанесения керамического покрытия.
+      </p>
+
+      <div class="services-grid">
+
+        <!-- Полировка -->
+        <div class="service-card reveal">
+          <div class="service-num">01</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0110 10"/><path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <div class="service-name">Полировка кузова/фар</div>
+          <div class="service-desc">
+            Устранение царапин, голограмм и помутнений. Восстановление глубины цвета и зеркального блеска лакокрасочного покрытия.
+          </div>
+          <div class="service-tags">
+            <span class="tag">1-стадийная</span>
+            <span class="tag">2-стадийная</span>
+            <span class="tag">Коррекция</span>
+          </div>
+        </div>
+
+        <!-- Керамика -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">02</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="service-name">Покраска авто</div>
+          <div class="service-desc">
+            Профессиональная покраска вашего авто с гарантией качества.
+          </div>
+          <div class="service-tags">
+            <span class="tag">1 год</span>
+            <span class="tag">3 года</span>
+            <span class="tag">5 лет</span>
+          </div>
+        </div>
+
+        <!-- PPF -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">03</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div class="service-name">Сварочные работы</div>
+          <div class="service-desc">
+            Сварочные работы любой сложности.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Ручная сврака</span>
+            <span class="tag">Аргонодуговая</span>
+            <span class="tag">Полуавтоматическая</span>
+          </div>
+        </div>
+
+        <!-- Оклейка -->
+        <div class="service-card reveal">
+          <div class="service-num">04</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </div>
+          <div class="service-name">Предпродажная подготовка</div>
+          <div class="service-desc">
+            Подготовка к продаже ваше автомобиля, устранение дефектов.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Полировка</span>
+            <span class="tag">Чистка</span>
+            <span class="tag">Аромотизация</span>
+          </div>
+        </div>
+
+        <!-- Химчистка -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">05</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="service-name">Химчистка салона</div>
+          <div class="service-desc">
+            Глубокая очистка всех поверхностей салона. Кожа, алькантара, пластик, ковры. Устранение запахов и сложных пятен.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Стандарт</span>
+            <span class="tag">Премиум</span>
+            <span class="tag">Детейлинг</span>
+          </div>
+        </div>
+
+        <!-- Фары -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">06</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            </svg>
+          </div>
+          <div class="service-name">Ремонт бамперов</div>
+          <div class="service-desc">
+            Ремонт бамперов любой сложности
+          </div>
+          <div class="service-tags">
+            <span class="tag">Пластик</span>
+            <!-- <span class="tag">Керамическая</span>-->
+            <span class="tag">Стекловолокно</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── ADVANTAGES ── -->
+    <section id="advantages">
+      <div class="adv-header">
+        <div>
+          <div class="section-label reveal">Почему мы</div>
+          <h2 class="section-title reveal reveal-delay-1">НАШИ<br>ПРЕИМУЩЕСТВА</h2>
+        </div>
+        <p class="section-desc reveal" style="margin-bottom:0;">
+          Мы не просто моем машины — мы возвращаем им идеальный облик и защищаем на годы вперёд.
+        </p>
+      </div>
+
+      <div class="adv-grid">
+        <div class="adv-card reveal">
+          <div class="adv-icon">🏆</div>
+          <div class="adv-title">СЕРТИФИЦИРОВАННЫЕ МАСТЕРА</div>
+          <div class="adv-text">Наши специалисты являются настоящими профессионалами</div>
+        </div>
+        <div class="adv-card reveal reveal-delay-1">
+          <div class="adv-icon">🔬</div>
+          <div class="adv-title">ПРЕМИАЛЬНЫЕ МАТЕРИАЛЫ</div>
+          <div class="adv-text">Используем только профессиональные продукты. Без дешёвых аналогов — только то, что действительно работает.</div>
+        </div>
+        <div class="adv-card reveal reveal-delay-2">
+          <div class="adv-icon">📋</div>
+          <div class="adv-title">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ И ТОЧНАЯ ОЦЕНКА РАБОТт</div>
+          <div class="adv-text">Консультацию проводит специалист, заранее оговаривается цена</div>
+        </div>
+        <div class="adv-card reveal">
+          <div class="adv-icon">🎥</div>
+          <div class="adv-title">ФОТО/ВИДЕО ФИКСАЦИЯ</div>
+          <div class="adv-text">Снимаем автомобиль до начала и после завершения работ. Вы всегда знаете, в каком состоянии к нам поступило авто.</div>
+        </div>
+        <div class="adv-card reveal reveal-delay-1">
+          <div class="adv-icon">🚗</div>
+          <div class="adv-title">РАБОТАЕМ С ЛЮБЫМИ АВТО</div>
+          <div class="adv-text">От городских хетчбэков до суперкаров и коллекционных автомобилей. Каждая машина — особый подход.</div>
+        </div>
+        <div class="adv-card reveal reveal-delay-2">
+          <div class="adv-icon">⏱</div>
+          <div class="adv-title">ТОЧНЫЕ СРОКИ</div>
+          <div class="adv-text">Называем реальные сроки и держим их. Онлайн-отчёты о ходе работ — вы всегда в курсе.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── GALLERY ── -->
+    <section id="gallery">
+      <div class="section-label reveal">Портфолио</div>
+      <h2 class="section-title reveal reveal-delay-1">НАШИ РАБОТЫ</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Каждый проект — отдельная история. Нажмите на работу, чтобы узнать подробности.
+      </p>
+
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="gallery-more reveal">
+        <p style="color: var(--grey); font-size: 0.85rem; margin-bottom: 1.5rem;">
+          Больше работ — в нашем Instagram и Telegram
+        </p>
+        <a href="#contacts" class="btn-outline">Смотреть все работы</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── PRICING ── -->
+    <section id="pricing">
+      <div class="pricing-header">
+        <div class="section-label reveal">Стоимость</div>
+        <h2 class="section-title reveal reveal-delay-1">ПРАЙС-ЛИСТ</h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Итоговая стоимость зависит от класса автомобиля и его состояния. Точный расчёт — после осмотра.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <table class="pricing-table" role="table">
+          <thead>
+            <tr>
+              <th>Услуга</th>
+              <th class="hide-mobile">Описание</th>
+              <th>Цена</th>
+              <!--<th>Кроссовер / SUV</th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Полировка -->
+            <tr class="pricing-category">
+              <td colspan="4">—Покраска кузова</td>
+            </tr>
+            <tr>
+              <td>Покраска элемента локально/в переход</td>
+              <td class="hide-mobile">Локальная покраска —  восстановление повреждённого участка кузова без необходимости окрашивать весь элемент. </td>
+              <td class="price">от 15 000 ₽</td>
+              <!--<td class="price">от 10 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Покраска деталей салона (в снятом виде)</td>
+              <td class="hide-mobile">Процесс окрашивания пластиковых элементов салона</td>
+              <td class="price">от 1 500 ₽</td>
+              <!--<td class="price">от 18 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Покраска бампера</td>
+              <td class="hide-mobile">Восстановление внешнего вида с подбором точного цвета, устранением царапин и сколов</td>
+              <td class="price">от 16 000 ₽</td>
+              <!--<td class="price">от 30 000 ₽</td>-->
+            </tr>
+
+            <!-- Керамика -->
+            <tr class="pricing-category">
+              <td colspan="4">— Полировка</td>
+            </tr>
+            <tr>
+              <td>Полировка элемента</td>
+              <td class="hide-mobile">Устранение мелких царапин, потертостей и матовости с поверхности элемента</td>
+              <td class="price">от 1 000 ₽</td>
+              <!--<td class="price">от 15 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Полная покраска автомобиля</td>
+              <td class="hide-mobile">Полный облив авто с подготовкой. Смена\обновление ЛКП.</td>
+              <td class="price">от 300 000 ₽</td>
+              <!--<td class="price">от 27 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Полировка кузова</td>
+              <td class="hide-mobile">Профессиональная полировка</td>
+              <td class="price">от 16 000 ₽</td>
+              <!--<td class="price">от 45 000 ₽</td>-->
+            </tr>
+
+            <!-- PPF -->
+            <tr class="pricing-category">
+              <td colspan="4">— Ремонт</td>
+            </tr>
+            <tr>
+              <td>Ремонт деталей автомобиля</td>
+              <td class="hide-mobile">Восстановление лакокрасочного и антикоррозийного покрытия, конструкции детали. Выравнивание геометрии кузова</td>
+              <td class="price">от 16 000 ₽</td>
+              <!--<td class="price">от 22 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Передний комплект</td>
+              <td class="hide-mobile">Бампер, капот, крылья, фары</td>
+              <td class="price">от 45 000 ₽</td>
+              <!--<td class="price">от 55 000 ₽</td>-->
+            </tr>
+            
+
+            <!-- Химчистка -->
+            <tr class="pricing-category">
+              <td colspan="4">— Сварка</td>
+            </tr>
+            <tr>
+              <td>Переварка порогов (сторона)</td>
+              <td class="hide-mobile">Процесс, при котором повреждённые пороги восстанавливают или заменяют с помощью сварки.</td>
+              <td class="price">от 30 000 ₽</td>
+              <!--<td class="price">от 2 500 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Сварочные работы</td>
+              <td class="hide-mobile">Процесс соединения металлических деталей для ремонта или восстановления кузова автомобиля</td>
+              <td class="price">от 3 000 ₽</td>
+              <!--<td class="price">от 11 000 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Рихтовка</td>
+              <td class="hide-mobile">Работа по восстановлению формы кузова автомобиля путём удаления деформаций</td>
+              <td class="price">от 3 000 ₽</td>
+              <!--<td class="price">от 150 000 ₽</td>-->
+            </tr>
+
+            <!-- Доп -->
+            <tr class="pricing-category">
+              <td colspan="4">— Дополнительные услуги</td>
+            </tr>
+            <tr>
+              <td>Снятие/установка бампера</td>
+              <td class="hide-mobile">Аккуратная демонтажно-монтажная процедура</td>
+              <td class="price">от 3 000 ₽</td>
+              <!--<td class="price">от 3 500 ₽</td>-->
+            </tr>
+            <tr>
+              <td>Дефектовка</td>
+              <td class="hide-mobile">Процесс после аварии для установки, какие детали повреждены и какой автомобилю нужен ремонт.</td>
+              <td class="price">от 2 000 ₽</td>
+              <!--<td class="price">от 2 500 ₽</td>-->
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="pricing-note">
+          Цены указаны ориентировочно и могут меняться в зависимости от состояния автомобиля. Точная стоимость определяется после осмотра. НДС не облагается.
+        </p>
+      </div>
+
+      <div class="mt-10 text-center reveal" style="margin-top:2.5rem;">
+        <a href="#contacts" class="btn-primary">Получить расчёт стоимости</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── BEFORE / AFTER ── -->
+    <!--<section id="before-after">
+      <div class="section-label reveal">Наглядно</div>
+      <h2 class="section-title reveal reveal-delay-1">ДО И ПОСЛЕ</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Перемещайте ползунок, чтобы увидеть разницу до и после детейлинга.
+      </p>
+
+      <div class="ba-wrapper reveal">
+        <div class="ba-container" role="img" aria-label="Сравнение кузова автомобиля до и после полировки">
+
+          
+          <div class="ba-img ba-before">
+            <div class="ba-placeholder" style="flex-direction:column; gap:1rem;">
+              <div style="font-size:3rem; opacity:0.3;">🚗</div>
+              <div style="font-size:1rem; letter-spacing:0.2em; color:#555;">ДО ПОЛИРОВКИ</div>
+              <div style="font-size:0.7rem; color:#333; letter-spacing:0.15em;">Матовый, потускневший ЛКП</div>
+            </div>
+          </div>
+
+          
+          <div class="ba-img ba-after">
+            <div class="ba-placeholder" style="flex-direction:column; gap:1rem; background: linear-gradient(135deg,#0d0d0d,#1a1a0d);">
+              <div style="font-size:3rem; filter:drop-shadow(0 0 20px rgba(201,168,76,0.6));">✨</div>
+              <div style="font-size:1rem; letter-spacing:0.2em; color:var(--gold);">ПОСЛЕ ПОЛИРОВКИ</div>
+              <div style="font-size:0.7rem; color:rgba(201,168,76,0.6); letter-spacing:0.15em;">Зеркальный блеск, защита 3 года</div>
+            </div>
+          </div>
+
+          
+          <div class="ba-labels">
+            <span class="ba-label ba-label-before">До</span>
+            <span class="ba-label ba-label-after">После</span>
+          </div>
+
+          
+          <div class="ba-handle" aria-label="Ползунок сравнения, используйте стрелки для перемещения">
+            <div class="ba-line"></div>
+            <div class="ba-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <p class="ba-hint">← Перетащите ползунок для сравнения →</p>
+      </div>
+    </section>-->
+
+    <div class="divider"></div>
+
+    <!-- ── CONTACTS ── -->
+    <section id="contacts">
+      <div class="section-label reveal">Связаться с нами</div>
+      <h2 class="section-title reveal reveal-delay-1">КОНТАКТЫ</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Запишитесь на осмотр или задайте вопрос любым удобным способом.
+      </p>
+
+      <div class="contacts-grid">
+
+        <!-- Left: contact links + hours -->
+        <div class="reveal">
+          <div class="contact-links">
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/79001234567" class="contact-link" target="_blank" rel="noopener noreferrer">
+              <div class="contact-link-icon cl-wa">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </div>
+              <div class="contact-link-info">
+                <div class="contact-link-type">WhatsApp</div>
+                <div class="contact-link-val">+7 (923) 408-80-56</div>
+              </div>
+              <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <!-- Telegram -->
+            <a href="https://t.me/autoluxdetail" class="contact-link" target="_blank" rel="noopener noreferrer">
+              <div class="contact-link-icon cl-tg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+              </div>
+              <div class="contact-link-info">
+                <div class="contact-link-type">Telegram</div>
+                <div class="contact-link-val">kuzoff70</div>
+              </div>
+              <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/autoluxdetail" class="contact-link" target="_blank" rel="noopener noreferrer">
+              <div class="contact-link-icon cl-ig">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="white" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="contact-link-info">
+                <div class="contact-link-type">Instagram</div>
+                <div class="contact-link-val">kuzoff70</div>
+              </div>
+              <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <!-- Phone -->
+            <a href="tel:+79001234567" class="contact-link">
+              <div class="contact-link-icon cl-ph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" fill="none"/>
+                </svg>
+              </div>
+              <div class="contact-link-info">
+                <div class="contact-link-type">Телефон</div>
+                <div class="contact-link-val">+7 (923) 408-80-56</div>
+              </div>
+              <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:info@autoluxdetail.ru" class="contact-link">
+              <div class="contact-link-icon cl-em">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div class="contact-link-info">
+                <div class="contact-link-type">E-mail</div>
+                <div class="contact-link-val">kuzoff70</div>
+              </div>
+              <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+          </div>
+
+          <!-- Work hours -->
+          <div style="margin-top: 2rem;">
+            <div class="section-label" style="margin-bottom: 1rem; font-size: 0.68rem;">Режим работы</div>
+            <div class="work-hours">
+              <div class="wh-item"><span class="wh-day">Пн — Сб</span><span class="wh-time">10:00 – 20:00</span></div>
+              <!--<div class="wh-item"><span class="wh-day">Суббота</span><span class="wh-time">09:00 – 15:00</span></div>-->
+              <div class="wh-item"><span class="wh-day">Воскресенье</span><span class="wh-time">Выходной</span></div>
+              <div class="wh-item"><span class="wh-day">Праздники</span><span class="wh-time">по записи</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Map -->
+        <div class="reveal reveal-delay-1">
+          <div class="map-container">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A78a39bd1d22061cccd057304748805f95f9cb4b7b285bd649cea9970e0cd3a12&amp;source=constructor"
+              title="Карта — расположение детейлинг студии kuzoff70"
+              loading="lazy"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="map-address">
+            <div class="map-address-icon">📍</div>
+            <div class="map-address-text">
+              <strong>kuzoff70</strong>
+              улица Пушкина, 10/1<br>
+              <span style="font-size:0.78rem; color: var(--grey);">Въезд со стороны ул. Пушкина</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="https://yandex.com/maps/67/tomsk/?ll=84.958084%2C56.495700&mode=poi&poi%5Bpoint%5D=84.957044%2C56.495301&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D40290939410&z=19.16" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.75rem; padding: 0.6rem 1.2rem;">
+              Яндекс Карты
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-logo">Kuz<span>OFF</span></div>
+      <div class="footer-links">
+        <a href="#services">Услуги</a>
+        <a href="#pricing">Прайс</a>
+        <a href="#gallery">Работы</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+      <div class="footer-copy">© 2026 KuzOFF. Все права защищены.</div>
+    </footer>
+
+  </div><!-- /#main-content -->
+
+  <!-- Script -->
+  <script src="main.js"></script>
+
+</body>
+</html>
